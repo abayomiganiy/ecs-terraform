@@ -12,5 +12,6 @@ variable "instance_type" {
 
 variable "ecr_url" {
   type        = string
-  description = "971422675840.dkr.ecr.us-west-2.amazonaws.com/my-ecs-app"
+  description = "ECR image URL"
+  default = "971422675840.dkr.ecr.us-west-2.amazonaws.com/my-ecs-app"
 }
