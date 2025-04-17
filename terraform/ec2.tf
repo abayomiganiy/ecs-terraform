@@ -1,6 +1,11 @@
+resource "tls_private_key" "ecs_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "ecs_key" {
   key_name   = "${var.app_name}-key"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = tls_private_key.ecs_key.public_key_openssh
 }
 
 resource "aws_launch_configuration" "ecs_config" {
