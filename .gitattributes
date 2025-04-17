@@ -1,0 +1,4 @@
+app/.yarn/**            linguist-vendored
+app/.yarn/releases/*    binary
+app/.yarn/plugins/**/*  binary
+app/.pnp.*              binary linguist-generated
