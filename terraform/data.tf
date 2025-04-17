@@ -9,13 +9,6 @@ data "aws_subnets" "public" {
   }
 }
 
-data "aws_subnets" "public" {
-  filter {
-    name   = "tag:Name"
-    values = ["*public*"]
-  }
-}
-
 data "aws_ami" "ecs" {
   most_recent = true
   owners      = ["amazon"]
