@@ -25,12 +25,15 @@ resource "aws_launch_configuration" "ecs_config" {
   }
 }
 
-data "aws_ami" "ecs" {
-  most_recent = true
-  owners      = ["amazon"]
+resource "aws_launch_template" "ecs_template" {
+  name_prefix   = "ecs-launch-template-"
+  image_id      = data.aws_ami.ecs_ami.id
+  instance_type = "t2.micro"
 
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-ecs-hvm-*-x86_64-ebs"]
+  key_name               = aws_key_pair.ecs_key.key_name
+  vpc_security_group_ids = [aws_security_group.ecs_sg.id]
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
