@@ -11,3 +11,17 @@ app/.yarn/*
 
 #!.yarn/cache
 app/.pnp.*
+
+
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+*.log
+*.bak
+userdata.sh
+
+# Environment variables
+.env
