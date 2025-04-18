@@ -21,22 +21,16 @@ resource "aws_launch_template" "ecs_template" {
   }
 }
 
-resource "aws_subnet" "public_1" {
-  vpc_id            = data.aws_vpc.default.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-west-2a"
-  map_public_ip_on_launch = true
-  tags = {
-    Name = "public-1"
-  }
+locals {
+  azs_count = 2
+  azs_names = data.aws_availability_zones.available.names
 }
 
-resource "aws_subnet" "public_2" {
-  vpc_id            = data.aws_vpc.default.id
-  cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-west-2b"
+resource "aws_subnet" "public" {
+  count                   = local.azs_count
+  vpc_id                  = aws_vpc.main.id
+  availability_zone       = local.azs_names[count.index]
+  cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + 1)
   map_public_ip_on_launch = true
-  tags = {
-    Name = "public-2"
-  }
+  tags                    = { Name = "public-${local.azs_names[count.index]}" }
 }

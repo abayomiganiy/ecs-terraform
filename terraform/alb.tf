@@ -2,10 +2,7 @@ resource "aws_lb" "app_alb" {
   name               = "${var.app_name}-alb"
   internal           = false
   load_balancer_type = "application"
-  subnets = [
-    aws_subnet.public_1.id,
-    aws_subnet.public_2.id
-  ]
+  subnets = aws_subnet.public[*].id
   security_groups = [aws_security_group.alb_sg.id]
 }
 

@@ -11,3 +11,7 @@ data "aws_ami" "ecs" {
     values = ["amzn2-ami-ecs-hvm-*-x86_64-ebs"]
   }
 }
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
